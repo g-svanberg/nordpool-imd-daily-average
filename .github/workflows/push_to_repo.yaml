@@ -24,4 +24,4 @@ jobs:
       - name: Push dockerhub
         run: |
           pip install twine
-          twine upload -u __token__ -p ${{ secrets.PYPI_TOKEN }} dist/*
+          twine upload -u __token__ -p ${{ secrets.PYPI_TOKEN }} --verbose dist/*
