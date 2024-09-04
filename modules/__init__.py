@@ -1,0 +1,1 @@
+from .nordpool import Prices

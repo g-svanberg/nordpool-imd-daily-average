@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nordpool"
+version= "1.0.0"
+description = "api wrapper for nordpool average daily spot prices api"
+requires-python = ">=3.12"
+
+dependencies = [
+    "httpx"
+]
