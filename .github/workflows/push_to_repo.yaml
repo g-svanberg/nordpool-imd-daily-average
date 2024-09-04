@@ -24,4 +24,4 @@ jobs:
       - name: Push dockerhub
         run: |
           pip install twine
-          twine upload -u ${{ secrets.PYPI_UID }} -p ${{ secrets.PYPI_PWD }} --repository-url https://repo7.sebank.se/artifactory/api/pypi/seb-sebmon-pypi dist/*
+          twine upload -u __token__ -p ${{ secrets.PYPI_TOKEN }} dist/*
