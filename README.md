@@ -1,6 +1,6 @@
 # nordpool-imd-daily-average
 
-Link to github repository [https://github.com/g-svanberg/nordpool-imd-daily-average]
+[Link to github repository](https://github.com/g-svanberg/nordpool-imd-daily-average)
 
 Python package for querying nordpool for average daily prices.
 Price returned is a string of SEK/kWh
