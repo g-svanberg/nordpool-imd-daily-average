@@ -20,7 +20,7 @@ Incremet is how much you need to add to the price if you chargeback someone per 
 | `"DK1"`               | 
 | `"DK2"`               | 
 
-#EMAIL_RECEIVERS is a list like this ["person1@domain.com","person2@gmail.com","person3@hotmail.com"] or it can be just one user
+EMAIL_RECEIVERS is a list like this ["person1@domain.com","person2@gmail.com","person3@hotmail.com"] or it can be just one user
 
 | Environment variables | Usage                    | Required           | Syntax                   | Comment                                            |
 |-----------------------|--------------------------|--------------------|--------------------------|----------------------------------------------------|
