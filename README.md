@@ -22,6 +22,12 @@ Incremet is how much you need to add to the price if you chargeback someone. It'
 | `"DK2"`               | 
 
 
+| Environment variables | Usage                    | Optional | Syntax                   | Comment                                         |
+|-----------------------|--------------------------|----------|--------------------------|-------------------------------------------------|
+| ERROR_EMAIL           | Where to send exceptions | Yes      | first.last@gmail.com     | If not used only local logging will occur       |
+| LOGLEVEL              | stdout logging level     | Yes      | DEBUG                    | Defaults to INFO if not used                    |
+
+
 Usage:  
 `pip install nordpool-daily-averages`  
 
@@ -38,7 +44,7 @@ price.get_prices_for_one_date("2024-08-30")
 #Getting average price for 2024-08-29 for areacode SE3 in SEK and 15 öre is added to the prices  
 from nordpool import Prices as p
 #instantiate class
-price = p("SE3","SEK", "0.15")
+price = p("SE3", "SEK", "0.15")
 #Get the price
 price.get_prices_for_one_date("2024-08-29")
 ~~~
@@ -47,7 +53,17 @@ price.get_prices_for_one_date("2024-08-29")
 #Getting average price for 2024-08-28 for areacode SE2 in SEK and no increment is added to the prices  
 from nordpool import Prices as p
 #instantiate class
-price = p("SE2","SEK")
+price = p("SE2", "SEK")
 #Get the price
 price.get_prices_for_one_date("2024-08-28")
 ~~~
+
+~~~python
+#Getting all price's for current year and last year for areacode SE2 in SEK and no increment is added to the prices  
+from nordpool import Prices as p
+#instantiate class
+price = p("SE2", "SEK")
+#Get all price's
+price.get_all_prices()
+~~~
+
