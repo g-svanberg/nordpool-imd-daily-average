@@ -19,5 +19,6 @@ dependencies = [
 Source = "https://github.com/g-svanberg/nordpool-imd-daily-average"
 Documentation = "https://github.com/g-svanberg/nordpool-imd-daily-average/blob/main/README.md"
 
-[classifiers]  
+classifiers = [
 "Development Status :: 4 - Beta"
+]
