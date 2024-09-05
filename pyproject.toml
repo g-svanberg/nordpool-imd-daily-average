@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nordpool-daily-averages"
-version= "1.1.9"
+version= "1.1.10"
 description = "REST api wrapper for nordpool average daily spot prices"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -18,7 +18,7 @@ dependencies = [
 classifiers = [
     "Topic :: Communications :: REST Api",
     "Operating System :: OS Independent",
-    "License :: MIT License",
+    "License :: :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
