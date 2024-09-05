@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nordpool-daily-averages"
-version= "1.1.11"
+version= "1.1.12"
 description = "REST api wrapper for nordpool average daily spot prices"
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -15,6 +15,10 @@ dependencies = [
     "redmail"
 ]
 
+[project.urls]
+Source = "https://github.com/g-svanberg/nordpool-imd-daily-average"
+Documentation = "https://github.com/g-svanberg/nordpool-imd-daily-average/blob/main/README.md"
+
 classifiers = [
     "Topic :: Communications :: REST Api",
     "Operating System :: OS Independent",
@@ -23,9 +27,6 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Intended Audience :: Developers",
+    "Intended Audience :: Developers"
 ]
 
-[project.urls]
-Source = "https://github.com/g-svanberg/nordpool-imd-daily-average"
-Documentation = "https://github.com/g-svanberg/nordpool-imd-daily-average/blob/main/README.md"
