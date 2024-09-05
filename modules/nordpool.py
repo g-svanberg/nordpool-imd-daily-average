@@ -4,6 +4,16 @@ import random
 import os
 import sys
 import logging
+from redmail import EmailSender
+
+
+if os.environ.get("EMAIL_HOST"):
+    EMAIL_HOST = os.environ.get("EMAIL_HOST")
+    EMAIL_SUBJECT = os.environ.get("EMAIL_SUBJECT")
+    EMAIL_SENDER = os.environ.get("EMAIL_SENDER")
+    EMAIL_RECEIVERS = os.environ.get("EMAIL_RECEIVERS")
+else:
+    EMAIL_HOST = ""
 
 log_level = os.getenv("LOGLEVEL", "INFO").upper()
 logging.basicConfig(
@@ -14,6 +24,12 @@ logger.setLevel(getattr(logging, log_level, logging.INFO))
 
 
 def do_error_handling_by_mail(msg: str) -> bool:
+    if not EMAIL_HOST:
+        """Bail if no host is given"""
+        return False
+    logging.info("Emailing file to subscribers")
+    email = EmailSender(host=EMAIL_HOST, port=25)
+    email.send(subject=EMAIL_SUBJECT, text=msg, sender=EMAIL_SENDER, receivers=EMAIL_RECEIVERS)
     return True
 
 

@@ -20,11 +20,15 @@ Incremet is how much you need to add to the price if you chargeback someone per 
 | `"DK1"`               | 
 | `"DK2"`               | 
 
+#EMAIL_RECEIVERS is a list like this ["person1@domain.com","person2@gmail.com","person3@hotmail.com"] or it can be just one user
 
-| Environment variables | Usage                    | Optional | Syntax                   | Comment                                         |
-|-----------------------|--------------------------|----------|--------------------------|-------------------------------------------------|
-| ERROR_EMAIL           | Where to send exceptions | Yes      | first.last@gmail.com     | If not used only local logging will occur       |
-| LOGLEVEL              | stdout logging level     | Yes      | DEBUG                    | Defaults to INFO if not used                    |
+| Environment variables | Usage                    | Required           | Syntax                   | Comment                                            |
+|-----------------------|--------------------------|--------------------|--------------------------|----------------------------------------------------|
+| LOGLEVEL              | stdout logging level     | No                 | DEBUG                    | Defaults to INFO if not used                       |
+| EMAIL_HOST            | host for outgoing emails | No                 | "myhost@acme.com"        | If not existing no email error sending, port is 25 |
+| EMAIL_SUBJECT         | Subject in email         | Yes if EMAIL_HOST  | "Something went wrong"   | What will in the subject for the email             |
+| EMAIL_SENDER          | Who will be sender       | Yes if EMAIL_HOST  | "first.last@acme.com"    | Which email address will be sender                 |
+| EMAIL_RECEIVERS       | Who will reseive the mail| Yes if EMAIL_HOST  | See above                | Who will receive the email(s)                      |
 
 
 Usage:  
