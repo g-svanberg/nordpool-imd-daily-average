@@ -4,6 +4,11 @@ import random
 import os
 
 
+def do_error_handling_by_mail(msg: str) -> bool:
+
+    return True
+
+
 def get_header() -> dict:
     """Returns a header dictionary with a random existing user agent to be used
 
@@ -31,11 +36,13 @@ class Prices:
         self,
         areacode: str,
         currency: str,
+        increment: str = "0",
         proxy: dict = None,
         verify: bool = True,
     ):
         self.areacode = areacode
         self.currency = currency
+        self.increment = float(increment)
         self.proxy = proxy
         self.verify = verify
         self.this_year = datetime.now().year
@@ -50,7 +57,9 @@ class Prices:
             self.this_year_data = data["multiAreaDailyAggregates"]
         else:
             """Error handling goes here"""
-            pass
+            do_error_handling_by_mail(
+                f"Call to Nord Pool for current year did not return a 200 status code, code returned was {res.status_code}"
+            )
         """Get last year data from nordpool"""
         self.headers = get_header()
         url = f"https://dataportal-api.nordpoolgroup.com/api/AggregatePrices?year={str(self.previous_year)}&market=DayAhead&deliveryArea={self.areacode}&currency={self.currency}"
@@ -60,13 +69,29 @@ class Prices:
             self.last_year_data = data["multiAreaDailyAggregates"]
         else:
             """Error handling goes here"""
-            pass
+            do_error_handling_by_mail(
+                f"Call to Nord Pool for previous year did not return a 200 status code, code returned was {res.status_code}"
+            )
+        """Merge the 2 years into one list"""
+        self.averages = self.this_year_data + self.last_year_data
+        """Strip keys we dont need just get date and price"""
+        final_list = []
+        for entry in self.averages:
+            if entry["deliveryStart"] != entry["deliveryEnd"]:
+                """Error handling goes here. Something wrong with the data"""
+                do_error_handling_by_mail(
+                    "Something is wrong with the data from nordpool start and end date's does not match"
+                )
+            final_list.append(
+                {
+                    "date": entry["deliveryStart"],
+                    "price": round(entry["averagePerArea"][self.areacode] / 1000 + self.increment, 3),
+                }
+            )
+        self.averages = final_list
 
-    def get_prices_this_year(self) -> dict:
-        return self.this_year_data
-
-    def get_prices_last_year(self) -> dict:
-        return self.last_year_data
+    def get_prices_both_years(self) -> dict:
+        return self.averages
 
     def get_prices_for_one_date(self, date: datetime) -> str:
 
@@ -81,7 +106,8 @@ if __name__ == "__main__":
         load_dotenv()
         AREACODE = os.environ.get("AREACODE")
         CURRENCY = os.environ.get("CURRENCY")
+        INCREMENT = os.environ.get("INCREMENT")
 
-    p = Prices(AREACODE, CURRENCY)
-    print(p.get_prices_this_year())
-    print(p.get_prices_last_year())
+    p = Prices(AREACODE, CURRENCY, INCREMENT)
+    print(p.get_prices_both_years())
+    # print(p.get_prices_last_year())
