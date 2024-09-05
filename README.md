@@ -29,7 +29,7 @@ EMAIL_RECEIVERS is a list like this ["person1@domain.com","person2@gmail.com","p
 | EMAIL_RECEIVERS       | Who will reseive the mail| Yes if EMAIL_HOST  | See above                | Who will receive the email(s)                      |
 
 
-#*Usage:  
+# ** Usage:**  
 `pip install nordpool-daily-averages`  
 
 ~~~python

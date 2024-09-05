@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nordpool-daily-averages"
-version= "1.1.20"
+version= "1.1.21"
 description = "REST api wrapper for nordpool average daily spot prices"
 readme = "README.md"
 license = { file = "LICENSE" }
