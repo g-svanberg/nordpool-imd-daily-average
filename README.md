@@ -16,7 +16,6 @@ Usage:
 `pip install nordpool-daily-averages`  
 
 Getting average price for 2024-08-30, for areacode SE3 and in Euro  
-
 ~~~python
 from nordpool import Prices as p
 #instantiate class
@@ -28,7 +27,6 @@ price.get_prices_for_one_date("2024-08-30")
 ~~~
 
 Getting average price for 2024-08-29 for areacode SE3 in SEK  
-
 ~~~python
 from nordpool import Prices as p
 #instantiate class
@@ -38,7 +36,6 @@ price.get_prices_for_one_date("2024-08-29")
 ~~~
 
 Getting average price for 2024-08-28 for areacode SE2 in SEK  
-
 ~~~python
 from nordpool import Prices as p
 #instantiate class
