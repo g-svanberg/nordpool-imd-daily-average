@@ -20,5 +20,5 @@ Source = "https://github.com/g-svanberg/nordpool-imd-daily-average"
 Documentation = "https://github.com/g-svanberg/nordpool-imd-daily-average/blob/main/README.md"
 
 classifiers = [
-"Development Status :: 4 - Beta"
+'Development Status :: 4 - Beta'
 ]
