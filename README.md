@@ -1,4 +1,3 @@
-# nordpool-imd-daily-average
 
 [Link to github repository](https://github.com/g-svanberg/nordpool-imd-daily-average)
 
