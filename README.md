@@ -29,47 +29,47 @@ Incremet is how much you need to add to the price if you chargeback someone per 
 
 ~~~python
 #Getting average price for 2024-08-30, for areacode SE3 and in Euro and 15 cents is added to the prices  
-from nordpool import Nordpool as np
+from nordpool import Daily as daily
 #instantiate class
-price = np.Daily("SE3", "EUR", "0.15")
+price = daily("SE3", "EUR", "0.15")
 #Get the price
 price.get_prices_for_one_date("2024-08-30")
 ~~~
 
 ~~~python
 #Getting average price for 2024-08-29 for areacode SE3 in SEK and 15 öre is added to the prices  
-from nordpool import Nordpools as np
+from nordpool import Daily as daily
 #instantiate class
-price = np.Daily("SE3", "SEK", "0.15")
+price = daily("SE3", "SEK", "0.15")
 #Get the price
 price.get_prices_for_one_date("2024-08-29")
 ~~~
 
 ~~~python
 #Getting average price for 2024-08-28 for areacode SE2 in SEK and no increment is added to the prices  
-from nordpool import Nordpool as np
+from nordpool import Daily as daily
 #instantiate class
-price = np.Daily("SE2", "SEK")
+price = daily("SE2", "SEK")
 #Get the price
 price.get_prices_for_one_date("2024-08-28")
 ~~~
 
 ~~~python
 #Getting all price's for current year and last year for areacode SE2 in SEK and no increment is added to the prices  
-from nordpool import Nordpool as np
+from nordpool import Daily as daily
 #instantiate class
-price = np.Daily("SE2", "SEK")
+price = daily("SE2", "SEK")
 #Get all price's
 price.get_all_prices()
 ~~~
 
 ~~~python
 import asyncio
-from nordpool import Nordpool as np
+from nordpool import Hourly as hour
 #Getting hourly data prices for one date
 async def main():
     #instantiate class
-    daily_average = np.Hourly(areacode="SE3", currency="SEK")
+    daily_average = hourly(areacode="SE3", currency="SEK")
     usage = await daily_average.get_hourly_prices("2024-09-04")
     print(usage)
 asyncio.run(main())
