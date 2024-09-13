@@ -5,7 +5,6 @@ import os
 import sys
 import logging
 from dataclasses import dataclass
-import asyncio
 
 
 log_level = os.getenv("LOGLEVEL", "INFO").upper()
@@ -136,42 +135,6 @@ class Daily(Nordpool):
         for day in self.averages:
             if day["date"] == date:
                 return day["price"]
-
-
-# @dataclass
-# class Hourly(Nordpool):
-
-#     def get_hourly_prices(self, date: str) -> list:
-#         """Get every hour price for one date
-
-#         Args:
-#             date (str): "YYYY-MM-DD"
-
-#         Returns:
-#             list: List of dictoinaries {"date": date, "price": 345}
-
-#         """
-#         url = f"https://dataportal-api.nordpoolgroup.com/api/DayAheadPrices?date={date}&market=DayAhead&deliveryArea={self.areacode}&currency={self.currency}"
-#         self.headers = get_header()
-#         res = httpx.get(url, headers=self.headers, verify=self.verify, proxies=self.proxy)
-#         if res.status_code == 200:
-#             data = res.json()
-#             data = data["multiAreaEntries"]
-#             """Build a new list and strip worthless data. And add 2 hours to the time's data is scewed by 2 hours
-#             You can verify this by looking at the json data in devtools compared with what is shown in the GUI"""
-#             prices = []
-#             for hour in data:
-#                 date = datetime.strptime(hour["deliveryStart"], "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=2)
-#                 date = datetime.strftime(date, "%Y-%m-%dT%H:%M:%SZ")
-#                 price = hour["entryPerArea"][self.areacode]
-#                 prices.append({"date": date, "price": price})
-#             return prices
-#         """Error handling"""
-#         msg = (
-#             f"Call to Nord Pool for current year did not return a 200 status code, code returned was {res.status_code}"
-#         )
-#         logging.error(msg)
-#         raise ConnectionError("API call did not return a 200, but something else in the 200-299 range")
 
 
 @dataclass

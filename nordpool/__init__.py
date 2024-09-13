@@ -1,1 +1,1 @@
-from .nordpool import Nordpool, Daily, Hourly
+from .nordpool import Nordpool, Daily, Hourly  # noqa: F401
