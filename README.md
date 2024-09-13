@@ -69,7 +69,7 @@ from nordpool import Hourly as hour
 #Getting hourly data prices for one date
 async def main():
     #instantiate class
-    daily_average = hourly(areacode="SE3", currency="SEK")
+    daily_average = hourl(areacode="SE3", currency="SEK")
     usage = await daily_average.get_hourly_prices("2024-09-04")
     print(usage)
 asyncio.run(main())
