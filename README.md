@@ -1,5 +1,7 @@
 
-Python package for querying nordpool for average daily prices.
+![example workflow](https://github.com/g-svanberg/nordpool-imd-daily-average/actions/workflows/push_to_repo.yaml/badge.svg)
+
+Python package for querying nordpool for average daily and hourly prices.
 Prices can only be obtained for the current year and the previous year.
 Incremet is how much you need to add to the price if you chargeback someone per kWh. It's optional and the default is zero
 
