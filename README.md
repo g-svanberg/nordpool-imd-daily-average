@@ -1,5 +1,6 @@
 
 ![example workflow](https://github.com/g-svanberg/nordpool-imd-daily-average/actions/workflows/ruff.yaml/badge.svg)
+![example workflow](https://github.com/g-svanberg/nordpool-imd-daily-average/actions/workflows/CodeQl.yaml/badge.svg)
 
 Python package for querying nordpool for average daily and hourly prices.
 Prices can only be obtained for the current year and the previous year.
