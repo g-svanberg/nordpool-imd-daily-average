@@ -63,3 +63,15 @@ price = np.Daily("SE2", "SEK")
 price.get_all_prices()
 ~~~
 
+~~~python
+import asyncio
+from nordpool import Nordpool as np
+#Getting hourly data prices for one date
+async def main():
+    #instantiate class
+    daily_average = np.Hourly(areacode="SE3", currency="SEK")
+    usage = await daily_average.get_hourly_prices("2024-09-04")
+    print(usage)
+asyncio.run(main())
+~~~
+
