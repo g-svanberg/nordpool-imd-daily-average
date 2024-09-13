@@ -212,10 +212,10 @@ class Hourly(Nordpool):
         raise ConnectionError(f"API call did not return a 200 status code, but {res.status_code}")
 
 
-async def main():
-    daily_average = Hourly(areacode="SE3", currency="SEK")
-    usage = await daily_average.get_hourly_prices("2024-09-04")
-    print(usage)
+# async def main():
+#     daily_average = Hourly(areacode="SE3", currency="SEK")
+#     usage = await daily_average.get_hourly_prices("2024-09-04")
+#     print(usage)
 
 
-asyncio.run(main())
+# asyncio.run(main())

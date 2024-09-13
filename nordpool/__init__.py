@@ -1,1 +1,1 @@
-from .nordpool import Nordpool
+from .nordpool import Nordpool, Daily, Hourly
