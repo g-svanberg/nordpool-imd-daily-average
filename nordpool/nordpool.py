@@ -62,7 +62,6 @@ class Daily(Nordpool):
     previous_year = this_year - 1
 
     def __post_init__(self):
-
         try:
             url = f"https://dataportal-api.nordpoolgroup.com/api/AggregatePrices?year={str(self.this_year)}&market=DayAhead&deliveryArea={self.areacode}&currency={self.currency}"
             res = httpx.get(url, headers=self.headers, verify=self.verify, proxies=self.proxy)
@@ -139,7 +138,6 @@ class Daily(Nordpool):
 
 @dataclass
 class Hourly(Nordpool):
-
     async def get_hourly_prices(self, date: str) -> list:
         """Get every hour price for one date. This is an async function need to be called by a parent asyncio call
 
@@ -164,7 +162,7 @@ class Hourly(Nordpool):
                 date = datetime.strptime(hour["deliveryStart"], "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=2)
                 date = datetime.strftime(date, "%Y-%m-%dT%H:%M:%SZ")
                 price = hour["entryPerArea"][self.areacode]
-                prices.append({"date": date, "price": price})
+                prices.append({"date": date, "price": price}) / 1000
             return prices  # Return the correct list
 
         """Error handling"""
