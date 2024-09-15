@@ -5,7 +5,6 @@ import os
 import sys
 import logging
 from dataclasses import dataclass
-import asyncio
 
 
 log_level = os.getenv("LOGLEVEL", "INFO").upper()
@@ -172,12 +171,3 @@ class Hourly(Nordpool):
         )
         logging.error(msg)
         raise ConnectionError(f"API call did not return a 200 status code, but {res.status_code}")
-
-
-async def main():
-    daily_average = Hourly(areacode="SE3", currency="SEK")
-    usage = await daily_average.get_hourly_prices("2024-09-04")
-    print(usage)
-
-
-asyncio.run(main())
