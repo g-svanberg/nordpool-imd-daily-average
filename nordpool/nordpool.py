@@ -16,7 +16,7 @@ logger = logging.getLogger()
 logger.setLevel(getattr(logging, log_level, logging.INFO))
 
 
-async def get_header() -> dict:
+def get_header() -> dict:
     """Returns a header dictionary with a random existing user agent to be used.
     Being kind to the API
 
@@ -34,8 +34,7 @@ async def get_header() -> dict:
         "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15\
         (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
     ]
-    # random_number = random.randint(0, 3)
-    random_number = 2
+    random_number = random.randint(0, 3)
     header["User-Agent"] = user_agents[random_number]
     return header
 
@@ -47,12 +46,11 @@ class Nordpool:
     increment: str = "0"
     proxy: dict = None
     verify: bool = True
-    """Get previous year if this runs in january. And you need to harvest december data"""
-    headers = asyncio.run(get_header())
 
 
 @dataclass
 class Daily(Nordpool):
+    headers = get_header()
     """Returns daily average prices for current year and previous year
 
     Args:
@@ -139,6 +137,8 @@ class Daily(Nordpool):
 
 @dataclass
 class Hourly(Nordpool):
+    headers = get_header()
+
     async def get_hourly_prices(self, date: str) -> list:
         """Get every hour price for one date. This is an async function need to be called by a parent asyncio call
 
@@ -149,7 +149,6 @@ class Hourly(Nordpool):
             list: List of dictionaries {"date": date, "price": 345}
         """
         url = f"https://dataportal-api.nordpoolgroup.com/api/DayAheadPrices?date={date}&market=DayAhead&deliveryArea={self.areacode}&currency={self.currency}"
-        self.headers = await get_header()
         timeout = httpx.Timeout(10.0)
         async with httpx.AsyncClient(timeout=timeout, verify=self.verify, proxy=self.proxy) as client:
             res = await client.get(url, headers=self.headers)
