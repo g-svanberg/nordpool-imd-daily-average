@@ -36,7 +36,6 @@ async def get_header() -> dict:
     ]
     random_number = random.randint(0, 3)
     header["User-Agent"] = user_agents[random_number]
-    logging.info("returning headers")
     return header
 
 
