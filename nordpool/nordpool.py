@@ -35,7 +35,7 @@ async def get_header() -> dict:
         (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
     ]
     random_number = random.randint(0, 3)
-    header["User-Agent"] = await user_agents[random_number]
+    header["User-Agent"] = user_agents[random_number]
     logging.info("returning headers")
     return header
 
