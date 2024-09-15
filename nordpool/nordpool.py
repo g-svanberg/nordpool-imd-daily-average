@@ -4,6 +4,7 @@ import random
 import os
 import sys
 import logging
+import asyncio
 from dataclasses import dataclass
 
 
@@ -15,7 +16,7 @@ logger = logging.getLogger()
 logger.setLevel(getattr(logging, log_level, logging.INFO))
 
 
-def get_header() -> dict:
+async def get_header() -> dict:
     """Returns a header dictionary with a random existing user agent to be used.
     Being kind to the API
 
@@ -34,7 +35,7 @@ def get_header() -> dict:
         (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
     ]
     random_number = random.randint(0, 3)
-    header["User-Agent"] = user_agents[random_number]
+    header["User-Agent"] = await user_agents[random_number]
     logging.info("returning headers")
     return header
 
@@ -47,7 +48,7 @@ class Nordpool:
     proxy: dict = None
     verify: bool = True
     """Get previous year if this runs in january. And you need to harvest december data"""
-    headers = get_header()
+    headers = asyncio.run(get_header())
 
 
 @dataclass
@@ -148,7 +149,7 @@ class Hourly(Nordpool):
             list: List of dictionaries {"date": date, "price": 345}
         """
         url = f"https://dataportal-api.nordpoolgroup.com/api/DayAheadPrices?date={date}&market=DayAhead&deliveryArea={self.areacode}&currency={self.currency}"
-        self.headers = get_header()
+        self.headers = await get_header()
         timeout = httpx.Timeout(10.0)
         async with httpx.AsyncClient(timeout=timeout, verify=self.verify, proxy=self.proxy) as client:
             res = await client.get(url, headers=self.headers)
