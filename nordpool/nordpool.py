@@ -34,7 +34,8 @@ async def get_header() -> dict:
         "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15\
         (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
     ]
-    random_number = random.randint(0, 3)
+    # random_number = random.randint(0, 3)
+    random_number = 2
     header["User-Agent"] = user_agents[random_number]
     return header
 
