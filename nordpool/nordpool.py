@@ -162,6 +162,9 @@ class Hourly(Nordpool):
                 date = datetime.strptime(hour["deliveryStart"], "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=2)
                 date = datetime.strftime(date, "%Y-%m-%dT%H:%M:%SZ")
                 price = hour["entryPerArea"][self.areacode] / 1000
+                """Unusual but it happens. set price to zero if it is negative."""
+                if price < 0:
+                    price = 0
                 prices.append({"date": date, "price": price})
             return prices  # Return the correct list
 
