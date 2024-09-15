@@ -165,7 +165,7 @@ class Hourly(Nordpool):
                 """Unusual but it happens. set price to zero if it is negative."""
                 if price < 0:
                     price = 0
-                prices.append({"date": date, "price": price})
+                prices.append({"date": date, "price": round(price, 3)})
             return prices  # Return the correct list
 
         """Error handling"""
