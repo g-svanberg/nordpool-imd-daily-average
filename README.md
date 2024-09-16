@@ -4,10 +4,11 @@
 Python package for querying nordpool for average daily and hourly prices per kWh.
 Prices can only be obtained for the current year and the previous year.
 Incremet is how much you need to add to the price if you chargeback someone per kWh. It's optional and the default is zero.
+Default timezone is "Europe/Stockholm" 
 
-| Supported areacode's | Suported currency's | Increment |
-| -------------------- | ------------------- | --------- |
-| `"SE1"`              | `"SEK"`             | `"0.15"`  |
+| Supported areacode's | Suported currency's | Increment | Timezone             |
+| -------------------- | ------------------- | --------- | -------------------- |
+| `"SE1"`              | `"SEK"`             | `"0.15"`  | `"Europe/Stockholm"` |
 | `"SE2"`              | `"EUR"`             |
 | `"SE3"`              |
 | `"SE4"`              |

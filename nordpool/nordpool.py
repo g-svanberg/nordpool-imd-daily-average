@@ -1,10 +1,10 @@
 import httpx
 from datetime import datetime, timedelta
+import pytz
 import random
 import os
 import sys
 import logging
-import asyncio
 from dataclasses import dataclass
 
 
@@ -14,6 +14,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger()
 logger.setLevel(getattr(logging, log_level, logging.INFO))
+
+
+def is_daylight_saving(date: str, tz: pytz.timezone) -> int:
+    """Returns 2 if the date is in daylight saving time, 1 otherwise."""
+    date = tz.localize(datetime.strptime(date, "%Y-%m-%d"))
+    if date.dst() != timedelta(0):
+        return 2
+    return 1
 
 
 def get_header() -> dict:
@@ -137,21 +145,22 @@ class Daily(Nordpool):
 
 @dataclass
 class Hourly(Nordpool):
-    headers = get_header()
+    tz = pytz.timezone("Europe/Stockholm")
 
-    async def get_hourly_prices(self, date: str) -> list:
-        """Get every hour price for one date. This is an async function need to be called by a parent asyncio call
+    async def get_hourly_prices(self, date: str, client: httpx.AsyncClient) -> list:
+        """Get every hour price for one date. This is an async function need to be called by a parent asyncio coroutine\
+        default timezone is Europe/Stockholm. And has to be called with httpx
 
         Args:
             date (str): "YYYY-MM-DD"
+            client (httpx.AsyncClient)
 
         Returns:
             list: List of dictionaries {"date": date, "price": 345}
         """
+        DST = is_daylight_saving(date, self.tz)
         url = f"https://dataportal-api.nordpoolgroup.com/api/DayAheadPrices?date={date}&market=DayAhead&deliveryArea={self.areacode}&currency={self.currency}"
-        timeout = httpx.Timeout(10.0)
-        async with httpx.AsyncClient(timeout=timeout, verify=self.verify, proxy=self.proxy) as client:
-            res = await client.get(url, headers=self.headers)
+        res = await client.get(url, headers=get_header())
         if res.status_code == 200:
             data = res.json()
             data = data["multiAreaEntries"]
@@ -159,15 +168,15 @@ class Hourly(Nordpool):
             You can verify this by looking at the json data in devtools compared with what is shown in the GUI"""
             prices = []
             for hour in data:
-                date = datetime.strptime(hour["deliveryStart"], "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=2)
+                date = datetime.strptime(hour["deliveryStart"], "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=DST)
                 date = datetime.strftime(date, "%Y-%m-%dT%H:%M:%SZ")
                 price = hour["entryPerArea"][self.areacode] / 1000
                 price = round(price, 3)
                 """Unusual but it happens. set price to zero if it is negative."""
                 if price < 0:
-                    price = 0
+                    price = 0.0
                 prices.append({"date": date, "price": price})
-            return prices  # Return the correct list
+            return prices
 
         """Error handling"""
         msg = (
