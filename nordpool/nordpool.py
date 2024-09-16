@@ -174,7 +174,7 @@ class Hourly(Nordpool):
                 price = round(price, 3)
                 """Unusual but it happens. set price to zero if it is negative."""
                 if price < 0:
-                    price = 0.0
+                    price = self.increment
                 prices.append({"date": date, "price": price})
             return prices
 
