@@ -67,12 +67,19 @@ price.get_all_prices()
 
 ```python
 import asyncio
+import httpx
 from nordpool import Hourly as hour
-#Getting hourly data prices for one date
+#Getting hourly data prices for all the dates in a list concurrent. in SE3 and in SEK and add 8 öre as increment
+#Dates can be max 2 months back in time
 async def main():
-    #instantiate class
-    daily_average = hour(areacode="SE3", currency="SEK")
-    usage = await daily_average.get_hourly_prices("2024-09-04")
-    print(usage)
+    """Instantiate class"""
+    spot = hourly("SE3", "SEK", "0.8")
+    dates = ["2024-08-01", "2024-08-02", "2024-08-03"] #Usually all the dates in previous month
+    """Get hour prices every date an append"""
+    async with httpx.AsyncClient(timeout=10) as client:
+        prices = [spot.get_hourly_prices(date, client) for date in dates]
+        price = await asyncio.gather(*prices)
+    print(price)
+
 asyncio.run(main())
 ```
